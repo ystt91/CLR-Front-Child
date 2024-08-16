@@ -11,7 +11,7 @@ function AboutPage(props) {
         //     <div>About Page</div>
         // </div>
         <BasicLayout>
-            <div>AboutPage</div>
+            <div>AboutPageasdfasdf</div>
         </BasicLayout>
     );
 }
