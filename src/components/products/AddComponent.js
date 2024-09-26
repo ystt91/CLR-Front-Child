@@ -7,7 +7,7 @@ import useCustomMove from "../../hooks/useCustomMove";
 const initState = {
     pname:'',
     pdesc:'',
-    price:0 ,
+    price:0,
     files:[]
 }
 
@@ -15,7 +15,7 @@ const initState = {
 
 function AddComponent(props) {
 
-    const [product, setProduct] = useState(initState)
+    const [product, setProduct] = useState({...initState})
 
     const uploadRef = useRef()
 
@@ -33,12 +33,12 @@ function AddComponent(props) {
         setProduct({...product})
     }
 
-    const handleClickAdd = (e) =>{
+    const handleClickAdd = () =>{
         console.log(product)
 
+        const files = uploadRef.current.files   // <- DOM 객체
         const formData = new FormData()
 
-        const files = uploadRef.current.files   // <- DOM 객체
         /*
           console.log(files)
 
@@ -55,7 +55,7 @@ function AddComponent(props) {
             formData.append("files", files[i])
         }
 
-        formData.append("product", product.pname)
+        formData.append("pname", product.pname)
         formData.append("pdesc", product.pdesc)
         formData.append("price", product.price)
 
@@ -64,6 +64,7 @@ function AddComponent(props) {
         setFetching(true)
 
         postAdd(formData).then(data => {
+            console.log("야 이거 데이타다"+data)
             setFetching(false)
             setResult(data.result)
         })
@@ -72,7 +73,7 @@ function AddComponent(props) {
 
     const closeModal = () => {
         setResult(null)
-        moveToList({page:1})
+        moveToList()
     }
 
 
@@ -93,7 +94,6 @@ function AddComponent(props) {
                     <textarea
                         className="w-4/5 p-6 rounded-r border border-solid border-neutral-300 shadow-md resize-y"
                         name="pdesc" rows="4" onChange={handleChangeProduct} value={product.pdesc}>
-                    {product.pdesc}
                     </textarea>
                 </div>
             </div>
